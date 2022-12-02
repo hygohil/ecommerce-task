@@ -52,6 +52,7 @@ export class AuthService {
       accessToken: accessToken,
     };
   }
+
   public async register(user: RegisterUserDTO): Promise<User> {
     return this.userService.createUser(user);
   }
