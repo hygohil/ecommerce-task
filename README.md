@@ -41,6 +41,21 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Prisma (ORM)
+```bash
+# IDE for your database
+$ npx prisma studio 
+
+# run migrations (apply schema changes)
+$ npx prisma migrate dev
+
+# run migrations on CI/CD
+$ npx prisma migrate deploy
+
+# apply db schema changes to the prisma client
+$ npx prisma generate
+```
+
 ## Code Style
 Sync your IDE with project eslintrc.js. 
 

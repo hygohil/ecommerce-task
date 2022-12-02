@@ -15,5 +15,5 @@ export const GLOBAL_CONFIG: Config = {
     description: 'The nestjs API description',
     version: '1.5',
     path: API_PREFIX,
-  }
+  },
 };
