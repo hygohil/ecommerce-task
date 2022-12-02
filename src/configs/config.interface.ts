@@ -2,6 +2,7 @@ export interface Config {
   nest: NestConfig;
   cors: CorsConfig;
   swagger: SwaggerConfig;
+  security: SecurityConfig;
 }
 
 export interface NestConfig {
@@ -18,4 +19,8 @@ export interface SwaggerConfig {
   description: string;
   version: string;
   path: string;
+}
+export interface SecurityConfig {
+  expiresIn: number;
+  bcryptSaltOrRound: string | number;
 }
