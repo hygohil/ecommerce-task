@@ -51,7 +51,9 @@ export class AuthController {
     @Response() res,
   ): Promise<string> {
     await this.authService.activate(body);
-    return res.status(200).send('Account activated successfully');
+    return res
+      .status(200)
+      .send({ message: 'Account activated successfully', success: true });
   }
 
   @Patch('resetPassword')
@@ -63,6 +65,8 @@ export class AuthController {
   ): Promise<string> {
     await this.authService.resetPassword(body);
     res.clearCookie('accessToken');
-    return res.status(200).send('Account reset password successfully');
+    return res
+      .status(200)
+      .send({ message: 'Account reset password successfully', success: true });
   }
 }
