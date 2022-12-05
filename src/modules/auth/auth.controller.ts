@@ -1,11 +1,16 @@
-import { Body, Controller, Post, Response } from '@nestjs/common';
+import { Body, Controller, Post, Response, Put } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
 import { JWT_EXPIRY_SECONDS } from '../../shared/constants/global.constants';
 
 import { AuthService } from './auth.service';
-import { AuthResponseDTO, LoginUserDTO, RegisterUserDTO } from './auth.dto';
+import {
+  ActivateProfileDTO,
+  AuthResponseDTO,
+  LoginUserDTO,
+  RegisterUserDTO,
+} from './auth.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -35,5 +40,16 @@ export class AuthController {
   @Post('register')
   async register(@Body() user: RegisterUserDTO): Promise<User> {
     return this.authService.register(user);
+  }
+
+  @Put('activate')
+  @ApiResponse({ description: 'Account activated successfully' })
+  @ApiBody({ type: ActivateProfileDTO })
+  async activate(
+    @Body() body: ActivateProfileDTO,
+    @Response() res,
+  ): Promise<string> {
+    await this.authService.activate(body);
+    return res.status(200).send('Account activated successfully');
   }
 }

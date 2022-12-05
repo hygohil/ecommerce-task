@@ -20,4 +20,15 @@ export class UserService {
       data,
     });
   }
-} 
+
+  async findByUserIdAndUpdate(
+    userId: number,
+    updateObject: Prisma.UserUpdateInput,
+  ): Promise<User> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: updateObject,
+    });
+    return this.prisma.user.findFirst({ where: { id: userId } });
+  }
+}

@@ -7,7 +7,12 @@ import { PrismaService } from '../prisma/prisma.service';
 import { AuthHelpers } from '../../shared/helpers/auth.helpers';
 import { GLOBAL_CONFIG } from '../../configs/global.config';
 
-import { AuthResponseDTO, LoginUserDTO, RegisterUserDTO } from './auth.dto';
+import {
+  ActivateProfileDTO,
+  AuthResponseDTO,
+  LoginUserDTO,
+  RegisterUserDTO,
+} from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +46,7 @@ export class AuthService {
       email: userData.email,
       password: null,
       DOB: userData.DOB,
+      isActive: userData.isActive,
     };
 
     const accessToken = this.jwtService.sign(payload, {
@@ -55,5 +61,12 @@ export class AuthService {
 
   public async register(user: RegisterUserDTO): Promise<User> {
     return this.userService.createUser(user);
+  }
+
+  public async activate({ userId }: ActivateProfileDTO) {
+    const user = await this.userService.findByUserIdAndUpdate(userId, {
+      isActive: true,
+    });
+    return user;
   }
 }
