@@ -12,6 +12,7 @@ import {
   AuthResponseDTO,
   LoginUserDTO,
   RegisterUserDTO,
+  ResetPasswordDTO,
 } from './auth.dto';
 
 @Injectable()
@@ -68,5 +69,9 @@ export class AuthService {
       isActive: true,
     });
     return user;
+  }
+
+  public async resetPassword({ userId, password }: ResetPasswordDTO) {
+    await this.userService.updateUserById(userId, { password: password });
   }
 }

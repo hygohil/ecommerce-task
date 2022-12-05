@@ -52,3 +52,15 @@ export class ActivateProfileDTO {
   @ApiProperty()
   userId: number;
 }
+
+export class ResetPasswordDTO {
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty()
+  userId: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  password: string;
+}

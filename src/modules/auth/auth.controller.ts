@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Response, Put } from '@nestjs/common';
+import { Body, Controller, Post, Response, Put, Patch } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
@@ -10,6 +10,7 @@ import {
   AuthResponseDTO,
   LoginUserDTO,
   RegisterUserDTO,
+  ResetPasswordDTO,
 } from './auth.dto';
 
 @ApiTags('auth')
@@ -51,5 +52,17 @@ export class AuthController {
   ): Promise<string> {
     await this.authService.activate(body);
     return res.status(200).send('Account activated successfully');
+  }
+
+  @Patch('resetPassword')
+  @ApiResponse({ description: 'Account reset password successfully' })
+  @ApiBody({ type: ResetPasswordDTO })
+  async resetPassword(
+    @Body() body: ResetPasswordDTO,
+    @Response() res,
+  ): Promise<string> {
+    await this.authService.resetPassword(body);
+    res.clearCookie('accessToken');
+    return res.status(200).send('Account reset password successfully');
   }
 }
