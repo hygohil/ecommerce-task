@@ -41,4 +41,8 @@ export class UserService {
       data: updateObject,
     });
   }
+
+  async findUserByEmail(email: string): Promise<User> {
+    return this.prisma.user.findFirst({ where: { email } });
+  }
 }
