@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Response, Put, Patch } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Response,
+  Put,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
@@ -12,6 +20,7 @@ import {
   RegisterUserDTO,
   ResetPasswordDTO,
 } from './auth.dto';
+import { JwtAuthGuard } from './auth.jwt.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -57,6 +66,7 @@ export class AuthController {
   }
 
   @Patch('resetPassword')
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ description: 'Account reset password successfully' })
   @ApiBody({ type: ResetPasswordDTO })
   async resetPassword(
