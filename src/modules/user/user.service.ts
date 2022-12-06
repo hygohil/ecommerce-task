@@ -15,6 +15,15 @@ export class UserService {
     });
   }
 
+  async getUserById(id: number): Promise<User | null> {
+    return this.prisma.user.findFirst({
+      where: { id },
+      include: {
+        shoppingPreference: { select: { name: true } },
+      },
+    });
+  }
+
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,

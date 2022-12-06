@@ -7,6 +7,7 @@ import { LoggerMiddleware } from '../../middlewares/logger.middleware';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
 import { PrismaModule } from '../prisma/prisma.module';
+import { ShoppingPreferenceModule } from '../shoppingPreference/shoppingPreference.module';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
@@ -17,6 +18,7 @@ import { AppController } from './app.controller';
     UserModule,
     AuthModule,
     PrismaModule,
+    ShoppingPreferenceModule,
     ConfigModule.forRoot({ isGlobal: true, load: [() => GLOBAL_CONFIG] }),
   ],
   controllers: [AppController],

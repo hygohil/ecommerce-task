@@ -8,10 +8,18 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  password String
-  name     String
-  DOB      DateTime
-  isActive Boolean?
+  id                 Int                  @id @default(autoincrement())
+  email              String               @unique
+  password           String
+  name               String
+  DOB                DateTime
+  isActive           Boolean?
+  shoppingPreference ShoppingPreference[]
+}
+
+model ShoppingPreference {
+  id     Int    @id @default(autoincrement())
+  name   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
 }
